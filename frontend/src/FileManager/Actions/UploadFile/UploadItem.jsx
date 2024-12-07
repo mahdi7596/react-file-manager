@@ -34,7 +34,7 @@ const UploadItem = ({
     }));
     const error = {
       type: "upload",
-      message: "Upload failed.",
+      message: "مشکل در بارگذاری",
       response: {
         status: xhr.status,
         statusText: xhr.statusText,
@@ -161,25 +161,40 @@ const UploadItem = ({
   return (
     <li>
       <div className="file-icon">
-        {fileIcons[getFileExtension(fileData.file?.name)] ?? <FaRegFile size={33} />}
+        {fileIcons[getFileExtension(fileData.file?.name)] ?? (
+          <FaRegFile size={33} />
+        )}
       </div>
       <div className="file">
         <div className="file-details">
           <div className="file-info">
-            <span className="file-name text-truncate" title={fileData.file?.name}>
+            <span
+              className="file-name text-truncate"
+              title={fileData.file?.name}
+            >
               {fileData.file?.name}
             </span>
-            <span className="file-size">{getDataSize(fileData.file?.size)}</span>
+            <span className="file-size">
+              {getDataSize(fileData.file?.size)}
+            </span>
           </div>
           {isUploaded ? (
             <FaRegCheckCircle color="#5c5bb1" title="Uploaded" />
           ) : isCanceled || uploadFailed ? (
-            <IoMdRefresh className="retry-upload" title="Retry" onClick={handleRetry} />
+            <IoMdRefresh
+              className="retry-upload"
+              title="Retry"
+              onClick={handleRetry}
+            />
           ) : (
             <div
               className="rm-file"
               title={`${!!fileData.error ? "Remove" : "Abort Upload"}`}
-              onClick={!!fileData.error ? () => handleFileRemove(index) : handleAbortUpload}
+              onClick={
+                !!fileData.error
+                  ? () => handleFileRemove(index)
+                  : handleAbortUpload
+              }
             >
               <AiOutlineClose />
             </div>

@@ -11,6 +11,7 @@
   @include overflow-y-scroll;
   padding: 8px;
   padding-right: 4px;
+  background-color: yellow;
 
   .drag-move-tooltip {
     background-color: white;
@@ -54,6 +55,7 @@
     position: relative;
     height: 81px;
     width: 138px;
+    background-color: pink;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;

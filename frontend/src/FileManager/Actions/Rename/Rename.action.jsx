@@ -77,7 +77,9 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
       return;
     } else if (currentPathFiles.some((file) => file.name === renameFile)) {
       setFileRenameError(true);
-      setRenameErrorMessage(`This destination already contains a folder named '${renameFile}'.`);
+      setRenameErrorMessage(
+        `This destination already contains a folder named '${renameFile}'.`
+      );
       outsideClick.setIsClicked(false);
       return;
     } else if (!file.isDirectory && !isConfirmed) {
@@ -116,9 +118,11 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
       const filesContainer = filesViewRef.current;
       const filesContainerRect = filesContainer.getBoundingClientRect();
       const renameInputContainer = outsideClick.ref.current;
-      const renameInputContainerRect = renameInputContainer.getBoundingClientRect();
+      const renameInputContainerRect =
+        renameInputContainer.getBoundingClientRect();
 
-      const rightAvailableSpace = filesContainerRect.right - renameInputContainerRect.left;
+      const rightAvailableSpace =
+        filesContainerRect.right - renameInputContainerRect.left;
       rightAvailableSpace > errorMessageWidth
         ? setErrorXPlacement("right")
         : setErrorXPlacement("left");
@@ -162,7 +166,7 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
       )}
 
       <Modal
-        heading={"Rename"}
+        heading={"تعییر نام"}
         show={renameFileWarning}
         setShow={setRenameFileWarning}
         dialogWidth={"25vw"}
@@ -173,8 +177,8 @@ const RenameAction = ({ filesViewRef, file, onRename, triggerAction }) => {
             <div className="fm-rename-warning">
               <IoWarningOutline size={70} color="orange" />
               <div>
-                If you change a file name extension, the file might become unusable. Are you sure
-                you want to change it?
+                If you change a file name extension, the file might become
+                unusable. Are you sure you want to change it?
               </div>
             </div>
           </div>

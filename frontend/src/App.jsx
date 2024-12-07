@@ -13,7 +13,41 @@ function App() {
     url: import.meta.env.VITE_API_BASE_URL + "/upload",
   };
   const [isLoading, setIsLoading] = useState(false);
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState([
+    {
+      name: "Documents",
+      isDirectory: true, // Folder
+      path: "/Documents", // Located in Root directory
+      updatedAt: "2024-09-09T10:30:00Z", // Last updated time
+    },
+    {
+      name: "Documents2",
+      isDirectory: true, // Folder
+      path: "/Documents2", // Located in Root directory
+      updatedAt: "2024-09-09T10:30:00Z", // Last updated time
+    },
+    {
+      name: "Pictures",
+      isDirectory: true,
+      path: "/Pictures", // Located in Root directory as well
+      updatedAt: "2024-09-09T11:00:00Z",
+    },
+    {
+      name: "Pic.png",
+      isDirectory: false, // File
+      path: "/Pictures/Pic.png", // Located inside the "Pictures" folder
+      updatedAt: "2024-09-08T16:45:00Z",
+      size: 2048, // File size in bytes (example: 2 KB)
+    },
+    {
+      name: "File.dcs",
+      isDirectory: false,
+      path: "/Documents/File.dcs",
+      updatedAt: "2024-09-08T16:45:00Z",
+      size: 2048,
+    },
+  ]);
+
   const isMountRef = useRef(false);
 
   // Get Files

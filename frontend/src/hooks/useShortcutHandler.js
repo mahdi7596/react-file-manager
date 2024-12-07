@@ -77,18 +77,34 @@ export const useShortcutHandler = (triggerAction, onRefresh) => {
   };
 
   // Keypress detection will be disbaled when some Action is in active state.
-  useKeyPress(shortcuts.createFolder, triggerCreateFolder, triggerAction.isActive);
-  useKeyPress(shortcuts.uploadFiles, triggerUploadFiles, triggerAction.isActive);
+  useKeyPress(
+    shortcuts.createFolder,
+    triggerCreateFolder,
+    triggerAction.isActive
+  );
+  useKeyPress(
+    shortcuts.uploadFiles,
+    triggerUploadFiles,
+    triggerAction.isActive
+  );
   useKeyPress(shortcuts.cut, triggerCutItems, triggerAction.isActive);
   useKeyPress(shortcuts.copy, triggerCopyItems, triggerAction.isActive);
   useKeyPress(shortcuts.paste, triggerPasteItems, triggerAction.isActive);
   useKeyPress(shortcuts.rename, triggerRename, triggerAction.isActive);
   useKeyPress(shortcuts.download, triggerDownload, triggerAction.isActive);
   useKeyPress(shortcuts.delete, triggerDelete, triggerAction.isActive);
-  useKeyPress(shortcuts.jumpToFirst, triggerSelectFirst, triggerAction.isActive);
+  useKeyPress(
+    shortcuts.jumpToFirst,
+    triggerSelectFirst,
+    triggerAction.isActive
+  );
   useKeyPress(shortcuts.jumpToLast, triggerSelectLast, triggerAction.isActive);
   useKeyPress(shortcuts.selectAll, triggerSelectAll, triggerAction.isActive);
-  useKeyPress(shortcuts.clearSelection, triggerClearSelection, triggerAction.isActive);
+  useKeyPress(
+    shortcuts.clearSelection,
+    triggerClearSelection,
+    triggerAction.isActive
+  );
   useKeyPress(shortcuts.refresh, triggerRefresh, triggerAction.isActive);
   useKeyPress(shortcuts.gridLayout, triggerGridLayout, triggerAction.isActive);
   useKeyPress(shortcuts.listLayout, triggerListLayout, triggerAction.isActive);

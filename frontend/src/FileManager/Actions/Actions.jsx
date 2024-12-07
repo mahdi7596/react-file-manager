@@ -25,7 +25,7 @@ const Actions = ({
 
   const actionTypes = {
     uploadFile: {
-      title: "Upload",
+      title: "بارگذاری",
       component: (
         <UploadFileAction
           fileUploadConfig={fileUploadConfig}
@@ -38,8 +38,10 @@ const Actions = ({
       width: "35%",
     },
     delete: {
-      title: "Delete",
-      component: <DeleteAction triggerAction={triggerAction} onDelete={onDelete} />,
+      title: "حذف",
+      component: (
+        <DeleteAction triggerAction={triggerAction} onDelete={onDelete} />
+      ),
       width: "25%",
     },
     previewFile: {

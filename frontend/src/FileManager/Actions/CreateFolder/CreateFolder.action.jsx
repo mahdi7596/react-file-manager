@@ -9,7 +9,12 @@ import { validateApiCallback } from "../../../utils/validateApiCallback";
 
 const maxNameLength = 220;
 
-const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction }) => {
+const CreateFolderAction = ({
+  filesViewRef,
+  file,
+  onCreateFolder,
+  triggerAction,
+}) => {
   const [folderName, setFolderName] = useState(file.name);
   const [folderNameError, setFolderNameError] = useState(false);
   const [folderErrorMessage, setFolderErrorMessage] = useState("");
@@ -19,7 +24,8 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
     e.preventDefault();
     e.stopPropagation();
   });
-  const { currentFolder, currentPathFiles, setCurrentPathFiles } = useFileNavigation();
+  const { currentFolder, currentPathFiles, setCurrentPathFiles } =
+    useFileNavigation();
   const { activeLayout } = useLayout();
 
   // Folder name change handler function
@@ -66,14 +72,18 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
 
   function handleFolderCreating() {
     let newFolderName = folderName.trim();
-    const syncedCurrPathFiles = currentPathFiles.filter((f) => !(!!f.key && f.key === file.key));
+    const syncedCurrPathFiles = currentPathFiles.filter(
+      (f) => !(!!f.key && f.key === file.key)
+    );
 
     const alreadyExists = syncedCurrPathFiles.find((f) => {
       return f.name.toLowerCase() === newFolderName.toLowerCase();
     });
 
     if (alreadyExists) {
-      setFolderErrorMessage(`This destination already contains a folder named '${newFolderName}'.`);
+      setFolderErrorMessage(
+        `This destination already contains a folder named '${newFolderName}'.`
+      );
       setFolderNameError(true);
       outsideClick.ref.current?.focus();
       outsideClick.ref.current?.select();
@@ -82,10 +92,19 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
     }
 
     if (newFolderName === "") {
-      newFolderName = duplicateNameHandler("New Folder", true, syncedCurrPathFiles);
+      newFolderName = duplicateNameHandler(
+        "پوشه جدید",
+        true,
+        syncedCurrPathFiles
+      );
     }
 
-    validateApiCallback(onCreateFolder, "onCreateFolder", newFolderName, currentFolder);
+    validateApiCallback(
+      onCreateFolder,
+      "onCreateFolder",
+      newFolderName,
+      currentFolder
+    );
     setCurrentPathFiles((prev) => prev.filter((f) => f.key !== file.key));
     triggerAction.close();
   }
@@ -105,13 +124,15 @@ const CreateFolderAction = ({ filesViewRef, file, onCreateFolder, triggerAction 
       const nameInputContainer = outsideClick.ref.current;
       const nameInputContainerRect = nameInputContainer.getBoundingClientRect();
 
-      const rightAvailableSpace = filesContainerRect.right - nameInputContainerRect.left;
+      const rightAvailableSpace =
+        filesContainerRect.right - nameInputContainerRect.left;
       rightAvailableSpace > errorMessageWidth
         ? setErrorXPlacement("right")
         : setErrorXPlacement("left");
 
       const bottomAvailableSpace =
-        filesContainerRect.bottom - (nameInputContainerRect.top + nameInputContainer.clientHeight);
+        filesContainerRect.bottom -
+        (nameInputContainerRect.top + nameInputContainer.clientHeight);
       bottomAvailableSpace > errorMessageHeight
         ? setErrorYPlacement("bottom")
         : setErrorYPlacement("top");

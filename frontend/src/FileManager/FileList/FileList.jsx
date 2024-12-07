@@ -7,7 +7,11 @@ import { useLayout } from "../../contexts/LayoutContext";
 import ContextMenu from "../../components/ContextMenu/ContextMenu";
 import { useDetectOutsideClick } from "../../hooks/useDetectOutsideClick";
 import { BsCopy, BsFolderPlus, BsScissors } from "react-icons/bs";
-import { MdOutlineDelete, MdOutlineFileDownload, MdOutlineFileUpload } from "react-icons/md";
+import {
+  MdOutlineDelete,
+  MdOutlineFileDownload,
+  MdOutlineFileUpload,
+} from "react-icons/md";
 import { FiRefreshCw } from "react-icons/fi";
 import "./FileList.scss";
 import { PiFolderOpen } from "react-icons/pi";
@@ -15,7 +19,13 @@ import { FaRegFile, FaRegPaste } from "react-icons/fa6";
 import { BiRename } from "react-icons/bi";
 import { useClipBoard } from "../../contexts/ClipboardContext";
 
-const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, triggerAction }) => {
+const FileList = ({
+  onCreateFolder,
+  onRename,
+  onFileOpen,
+  enableFilePreview,
+  triggerAction,
+}) => {
   const [selectedFileIndexes, setSelectedFileIndexes] = useState([]);
   const [visible, setVisible] = useState(false);
   const [isSelectionCtx, setIsSelectionCtx] = useState(false);
@@ -24,6 +34,8 @@ const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, tri
 
   const { currentPath, setCurrentPath, currentPathFiles, setCurrentPathFiles } =
     useFileNavigation();
+
+  // console.log("currentPathFiles", currentPathFiles);
   const filesViewRef = useRef(null);
   const { selectedFiles, setSelectedFiles, handleDownload } = useSelection();
   const { clipBoard, handleCutCopy, handlePasting } = useClipBoard();
@@ -32,17 +44,17 @@ const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, tri
 
   const emptySelecCtxItems = [
     {
-      title: "Refresh",
+      title: "رفرش",
       icon: <FiRefreshCw size={18} />,
       onClick: () => {},
     },
     {
-      title: "New Folder",
+      title: "sdffsdsdf",
       icon: <BsFolderPlus size={18} />,
       onClick: () => {},
     },
     {
-      title: "Upload",
+      title: "بارگذاری",
       icon: <MdOutlineFileUpload size={18} />,
       onClick: () => {},
     },
@@ -50,41 +62,45 @@ const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, tri
 
   const selecCtxItems = [
     {
-      title: "Open",
-      icon: lastSelectedFile?.isDirectory ? <PiFolderOpen size={20} /> : <FaRegFile size={16} />,
+      title: "باز",
+      icon: lastSelectedFile?.isDirectory ? (
+        <PiFolderOpen size={20} />
+      ) : (
+        <FaRegFile size={16} />
+      ),
       onClick: handleFileOpen,
     },
     {
-      title: "Cut",
+      title: "کات",
       icon: <BsScissors size={19} />,
       onClick: () => handleMoveOrCopyItems(true),
     },
     {
-      title: "Copy",
+      title: "کپی",
       icon: <BsCopy strokeWidth={0.1} size={17} />,
       onClick: () => handleMoveOrCopyItems(false),
     },
     {
-      title: "Paste",
+      title: "پیست",
       icon: <FaRegPaste size={18} />,
       onClick: handleFilePasting,
       className: `${clipBoard ? "" : "disable-paste"}`,
       hidden: !lastSelectedFile?.isDirectory,
     },
     {
-      title: "Rename",
+      title: "تعییر نام",
       icon: <BiRename size={19} />,
       onClick: handleRenaming,
       hidden: selectedFiles.length > 1,
     },
     {
-      title: "Download",
+      title: "دانلود",
       icon: <MdOutlineFileDownload size={18} />,
       onClick: handleDownloadItems,
       hidden: lastSelectedFile?.isDirectory,
     },
     {
-      title: "Delete",
+      title: "حذف",
       icon: <MdOutlineDelete size={19} />,
       onClick: handleDelete,
     },
@@ -131,7 +147,7 @@ const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, tri
       return [
         ...prev,
         {
-          name: duplicateNameHandler("New Folder", true, prev),
+          name: duplicateNameHandler("پوشه جدید", true, prev),
           isDirectory: true,
           path: currentPath,
           isEditing: true,
@@ -182,7 +198,9 @@ const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, tri
     if (selectedFiles.length > 0) {
       setSelectedFileIndexes(() => {
         return selectedFiles.map((selectedFile) => {
-          return currentPathFiles.findIndex((f) => f.path === selectedFile.path);
+          return currentPathFiles.findIndex(
+            (f) => f.path === selectedFile.path
+          );
         });
       });
     } else {
@@ -193,7 +211,8 @@ const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, tri
   return (
     <div
       ref={filesViewRef}
-      className={`files ${activeLayout}`}
+      // className={`files ${activeLayout}`}
+      className={`files ${activeLayout === "grid" ? "flex flex-row" : "list"}`}
       onContextMenu={(e) => handleContextMenu(e, false)}
       onClick={() => {
         setSelectedFileIndexes([]);
@@ -202,9 +221,9 @@ const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, tri
     >
       {activeLayout === "list" && (
         <div className="files-header">
-          <div className="file-name">Name</div>
-          <div className="file-date">Modified</div>
-          <div className="file-size">Size</div>
+          <div className="file-name">نام</div>
+          <div className="file-date">تغییر یافته</div>
+          <div className="file-size">سایز</div>
         </div>
       )}
       {currentPathFiles?.length > 0 ? (
@@ -228,7 +247,7 @@ const FileList = ({ onCreateFolder, onRename, onFileOpen, enableFilePreview, tri
           ))}
         </>
       ) : (
-        <div className="empty-folder">This folder is empty.</div>
+        <div className="empty-folder">پوشه خالی است</div>
       )}
 
       <ContextMenu

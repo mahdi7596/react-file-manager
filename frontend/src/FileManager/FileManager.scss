@@ -55,6 +55,7 @@ svg {
 
   .files-container {
     display: flex;
+
     height: calc(100% - 46px); // Toolbar total height = baseHeight: 35px, padding top + bottom: 10px, border: 1px.
 
     .navigation-pane {
@@ -85,7 +86,7 @@ svg {
 
     .folders-preview {
       z-index: 2;
-      background-color: white;
+      background-color: red;
       padding-right: 0px;
       padding-left: 0px;
       border-bottom-right-radius: 8px;
